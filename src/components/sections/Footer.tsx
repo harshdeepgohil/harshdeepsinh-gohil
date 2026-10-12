@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { contact, site } from "@/data/portfolio";
 import { useSmoothScroll } from "@/components/providers/SmoothScroll";
-import { BrandIcon } from "@/components/ui/BrandIcon";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 
 function LocalTime() {
   const [time, setTime] = useState<string | null>(null);
@@ -31,12 +31,6 @@ function LocalTime() {
 export function Footer() {
   const { scrollTo } = useSmoothScroll();
 
-  const socials = [
-    contact.linkedin && { href: contact.linkedin, label: "LinkedIn", icon: "linkedin" as const },
-    contact.github && { href: contact.github, label: "GitHub", icon: "github" as const },
-    { href: `https://wa.me/${contact.whatsapp}`, label: "WhatsApp", icon: "whatsapp" as const },
-  ].filter(Boolean) as { href: string; label: string; icon: "linkedin" | "github" | "whatsapp" }[];
-
   return (
     <footer className="relative border-t border-border">
       <div className="container-x flex flex-col gap-12 py-14">
@@ -50,19 +44,7 @@ export function Footer() {
           </div>
 
           <div className="flex items-center gap-3">
-            {socials.map((s) => (
-              <Magnetic key={s.label}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${s.label} (opens in a new tab)`}
-                  className="glass grid h-12 w-12 place-items-center rounded-full transition-colors hover:bg-card-hover"
-                >
-                  <BrandIcon icon={s.icon} colored={false} className="h-5 w-5" />
-                </a>
-              </Magnetic>
-            ))}
+            <SocialLinks />
             <Magnetic>
               <a
                 href={`mailto:${contact.email}`}

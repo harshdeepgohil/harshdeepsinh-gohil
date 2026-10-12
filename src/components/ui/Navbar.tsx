@@ -6,6 +6,7 @@ import { contact, navLinks, site } from "@/data/portfolio";
 import { useSmoothScroll } from "@/components/providers/SmoothScroll";
 import { cn } from "@/lib/utils";
 import { Magnetic } from "./Magnetic";
+import { SocialLinks } from "./SocialLinks";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Navbar() {
@@ -218,6 +219,7 @@ export function Navbar() {
                 {contact.email}
               </a>
               <span>{site.location}</span>
+              <SocialLinks size="sm" className="mt-4" />
             </motion.div>
           </motion.div>
         )}

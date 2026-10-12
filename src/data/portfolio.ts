@@ -34,8 +34,8 @@ export const contact = {
   phone: "+91 9499880808",
   /** Digits only, with country code — used for the WhatsApp click-to-chat link */
   whatsapp: "919499880808",
-  /** TODO: add your LinkedIn profile URL, e.g. "https://www.linkedin.com/in/your-handle". Leave "" to hide. */
-  linkedin: "",
+  /** LinkedIn profile URL. Leave "" to hide. */
+  linkedin: "https://www.linkedin.com/in/harshdeepsinh-gohil-776938212",
   /** GitHub profile URL. Leave "" to hide. */
   github: "https://github.com/harshdeepgohil",
 };

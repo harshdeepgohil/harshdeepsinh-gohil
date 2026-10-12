@@ -6,6 +6,7 @@ import { useIntro } from "@/components/providers/IntroProvider";
 import { useSmoothScroll } from "@/components/providers/SmoothScroll";
 import { LazyHeroScene } from "@/components/three/LazyScene";
 import { Arrow, ButtonLink } from "@/components/ui/Button";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 import { gsap, useGSAP } from "@/lib/gsap";
 
 /** Types out each role, pauses, deletes, moves to the next. */
@@ -168,6 +169,7 @@ export function Hero() {
               <path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14" />
             </svg>
           </ButtonLink>
+          <SocialLinks size="sm" include={["linkedin", "github"]} className="sm:ml-2" />
         </div>
       </div>
 

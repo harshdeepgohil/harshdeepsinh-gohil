@@ -6,8 +6,8 @@ import { contact } from "@/data/portfolio";
 import { useToast } from "@/components/providers/ToastProvider";
 import { BrandIcon } from "@/components/ui/BrandIcon";
 import { Arrow, Button } from "@/components/ui/Button";
-import { Magnetic } from "@/components/ui/Magnetic";
 import { SplitReveal, Reveal } from "@/components/ui/Reveal";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -52,12 +52,6 @@ export function Contact() {
       setError(err instanceof Error ? err.message : "Something went wrong.");
     }
   };
-
-  const socials = [
-    contact.linkedin && { href: contact.linkedin, label: "LinkedIn", icon: "linkedin" as const },
-    contact.github && { href: contact.github, label: "GitHub", icon: "github" as const },
-    { href: `https://wa.me/${contact.whatsapp}`, label: "WhatsApp", icon: "whatsapp" as const },
-  ].filter(Boolean) as { href: string; label: string; icon: "linkedin" | "github" | "whatsapp" }[];
 
   return (
     <section id="contact" aria-labelledby="contact-title" className="section-y relative overflow-hidden">
@@ -112,21 +106,7 @@ export function Contact() {
               <BrandIcon icon="whatsapp" className="h-6 w-6" />
             </a>
 
-            <div className="mt-2 flex flex-wrap gap-3">
-              {socials.map((s) => (
-                <Magnetic key={s.label}>
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${s.label} (opens in a new tab)`}
-                    className="glass grid h-14 w-14 place-items-center rounded-full text-fg transition-colors hover:bg-card-hover"
-                  >
-                    <BrandIcon icon={s.icon} colored={false} className="h-5 w-5" />
-                  </a>
-                </Magnetic>
-              ))}
-            </div>
+            <SocialLinks size="lg" className="mt-2" />
           </Reveal>
 
           <Reveal>
