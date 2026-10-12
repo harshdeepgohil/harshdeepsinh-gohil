@@ -37,7 +37,7 @@ export const contact = {
   /** TODO: add your LinkedIn profile URL, e.g. "https://www.linkedin.com/in/your-handle". Leave "" to hide. */
   linkedin: "",
   /** GitHub profile URL. Leave "" to hide. */
-  github: "",
+  github: "https://github.com/harshdeepgohil",
 };
 
 export const hero = {
