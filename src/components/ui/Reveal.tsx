@@ -91,7 +91,11 @@ export function SplitReveal({
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         const targets = ref.current?.querySelectorAll("[data-word]");
-        if (!targets?.length) return;
+        const masks = ref.current?.querySelectorAll("[data-mask]");
+        if (!targets?.length || !masks?.length) return;
+        // Clip only while words are hidden / moving, so descenders (g, p, y)
+        // are never cut off once the text is at rest.
+        gsap.set(masks, { overflow: "hidden" });
         if (trigger === "manual" && !play) {
           gsap.set(targets, { yPercent: 140 });
           return;
@@ -106,6 +110,7 @@ export function SplitReveal({
             ease: "expo.out",
             stagger: 0.05,
             delay,
+            onComplete: () => gsap.set(masks, { clearProps: "overflow" }),
             scrollTrigger:
               trigger === "scroll" ? { trigger: ref.current, start: "top 88%", once: true } : undefined,
           }
@@ -119,16 +124,10 @@ export function SplitReveal({
     <Tag ref={ref} id={id} className={className}>
       {words.map((w, i) => (
         <Fragment key={i}>
-          <span className="-mb-[0.26em] inline-block overflow-hidden pb-[0.26em] align-bottom">
-            <span
-              data-word
-              className={cn(
-                "inline-block will-change-transform",
-                gradientWords.includes(w) && "text-gradient",
-                wordClassName
-              )}
-            >
-              {w}
+          <span data-mask className="-mb-[0.26em] inline-block pb-[0.26em] align-bottom">
+            <span data-word className={cn("inline-block will-change-transform", wordClassName)}>
+              {/* Inline span: its painted area covers descenders, so gradient text isn't cut */}
+              {gradientWords.includes(w) ? <span className="text-gradient">{w}</span> : w}
             </span>
           </span>
           {i < words.length - 1 && " "}

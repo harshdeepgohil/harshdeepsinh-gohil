@@ -192,7 +192,7 @@ export function Navbar() {
             />
             <ul className="relative flex flex-col gap-1">
               {navLinks.map((l, i) => (
-                <li key={l.id} className="overflow-hidden">
+                <li key={l.id} className="-mb-[0.3em] overflow-hidden pb-[0.3em]">
                   <motion.a
                     href={`#${l.id}`}
                     onClick={go(l.id)}

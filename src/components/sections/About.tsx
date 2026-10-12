@@ -37,7 +37,7 @@ function StatCard({ stat }: { stat: Stat }) {
         aria-hidden
         className="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-accent-2/20 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
       />
-      <span ref={num} className="text-gradient block font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-none font-bold tabular-nums">
+      <span ref={num} className="text-gradient block pb-[0.1em] font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[1.1] font-bold tabular-nums">
         {format(stat, stat.to)}
       </span>
       <span className="mt-3 block text-sm text-muted">{stat.label}</span>

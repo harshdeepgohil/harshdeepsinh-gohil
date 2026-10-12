@@ -79,13 +79,21 @@ export function Hero() {
       const q = gsap.utils.selector(root);
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const masks = q("[data-hero-mask]");
         if (!done) {
+          // Clip only while hidden / animating so descenders are never cut at rest.
+          gsap.set(masks, { overflow: "hidden" });
           gsap.set(q("[data-hero-line]"), { yPercent: 140 });
           gsap.set(q("[data-hero-fade]"), { autoAlpha: 0, y: 24 });
           return;
         }
         const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-        tl.to(q("[data-hero-line]"), { yPercent: 0, duration: 1.3, stagger: 0.09 }).to(
+        tl.to(q("[data-hero-line]"), {
+          yPercent: 0,
+          duration: 1.3,
+          stagger: 0.09,
+          onComplete: () => gsap.set(masks, { clearProps: "overflow" }),
+        }).to(
           q("[data-hero-fade]"),
           { autoAlpha: 1, y: 0, duration: 1, stagger: 0.08 },
           0.35
@@ -126,19 +134,19 @@ export function Hero() {
         </p>
 
         <h1 className="font-display leading-[0.92] font-bold tracking-tight">
-          <span className="block overflow-hidden pb-[0.24em] -mb-[0.24em] text-[clamp(1.4rem,3.6vw,2.6rem)]">
+          <span data-hero-mask className="-mb-[0.24em] block pb-[0.24em] text-[clamp(1.4rem,3.6vw,2.6rem)]">
             <span data-hero-line className="block font-semibold text-muted">
               {hero.greeting}
             </span>
           </span>
-          <span className="block overflow-hidden pb-[0.24em] -mb-[0.24em] text-[clamp(2.1rem,8.6vw,9.5rem)]">
+          <span data-hero-mask className="-mb-[0.24em] block pb-[0.24em] text-[clamp(2.1rem,8.6vw,9.5rem)]">
             <span data-hero-line className="block">
               {first}
             </span>
           </span>
-          <span className="block overflow-hidden pb-[0.24em] -mb-[0.14em] text-[clamp(2.1rem,8.6vw,9.5rem)]">
-            <span data-hero-line className="text-gradient block">
-              {rest.join(" ")}
+          <span data-hero-mask className="-mb-[0.14em] block pb-[0.24em] text-[clamp(2.1rem,8.6vw,9.5rem)]">
+            <span data-hero-line className="block">
+              <span className="text-gradient">{rest.join(" ")}</span>
             </span>
           </span>
         </h1>
