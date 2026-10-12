@@ -16,9 +16,9 @@ export function Experience() {
         // The SVG line draws itself as you scroll through the timeline.
         gsap.fromTo(
           q("[data-line]"),
-          { strokeDashoffset: 1 },
+          { scaleY: 0 },
           {
-            strokeDashoffset: 0,
+            scaleY: 1,
             ease: "none",
             scrollTrigger: { trigger: root.current, start: "top 70%", end: "bottom 70%", scrub: 0.6 },
           }
@@ -57,33 +57,13 @@ export function Experience() {
         <SectionHeading id="experience-title" index="03" eyebrow="Experience" title="Where I've been building." gradientWords={["building."]} />
 
         <div ref={root} className="relative">
-          <svg
-            aria-hidden
-            className="absolute top-0 left-[11px] h-full w-[2px] md:left-[calc(30%-1px)]"
-            viewBox="0 0 2 100"
-            preserveAspectRatio="none"
-          >
-            <line x1="1" y1="0" x2="1" y2="100" stroke="var(--border)" strokeWidth="2" vectorEffect="non-scaling-stroke" />
-            <line
+          {/* Track + gradient line that draws itself as you scroll */}
+          <div aria-hidden className="absolute top-0 bottom-0 left-[11px] w-[2px] rounded-full bg-border md:left-[calc(30%-1px)]">
+            <div
               data-line
-              x1="1"
-              y1="0"
-              x2="1"
-              y2="100"
-              stroke="url(#tl-grad)"
-              strokeWidth="2"
-              pathLength={1}
-              strokeDasharray="1"
-              strokeDashoffset="0"
-              vectorEffect="non-scaling-stroke"
+              className="h-full w-full origin-top rounded-full bg-gradient-to-b from-accent-1 via-accent-2 to-fuchsia-400"
             />
-            <defs>
-              <linearGradient id="tl-grad" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#3b82f6" />
-                <stop offset="100%" stopColor="#8b5cf6" />
-              </linearGradient>
-            </defs>
-          </svg>
+          </div>
 
           <ol className="flex flex-col gap-16 md:gap-24">
             {experience.map((job) => (

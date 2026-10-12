@@ -93,12 +93,12 @@ export function SplitReveal({
         const targets = ref.current?.querySelectorAll("[data-word]");
         if (!targets?.length) return;
         if (trigger === "manual" && !play) {
-          gsap.set(targets, { yPercent: 110 });
+          gsap.set(targets, { yPercent: 140 });
           return;
         }
         gsap.fromTo(
           targets,
-          { yPercent: 110, rotate: 4 },
+          { yPercent: 140, rotate: 4 },
           {
             yPercent: 0,
             rotate: 0,
@@ -119,7 +119,7 @@ export function SplitReveal({
     <Tag ref={ref} id={id} className={className}>
       {words.map((w, i) => (
         <Fragment key={i}>
-          <span className="-mb-[0.12em] inline-block overflow-hidden pb-[0.12em] align-bottom">
+          <span className="-mb-[0.26em] inline-block overflow-hidden pb-[0.26em] align-bottom">
             <span
               data-word
               className={cn(

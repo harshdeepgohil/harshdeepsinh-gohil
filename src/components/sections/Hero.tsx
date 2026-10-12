@@ -79,7 +79,7 @@ export function Hero() {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         if (!done) {
-          gsap.set(q("[data-hero-line]"), { yPercent: 115 });
+          gsap.set(q("[data-hero-line]"), { yPercent: 140 });
           gsap.set(q("[data-hero-fade]"), { autoAlpha: 0, y: 24 });
           return;
         }
@@ -125,18 +125,18 @@ export function Hero() {
         </p>
 
         <h1 className="font-display leading-[0.92] font-bold tracking-tight">
-          <span className="block overflow-hidden pb-[0.06em]">
-            <span data-hero-line className="block text-[clamp(1.4rem,3.6vw,2.6rem)] font-semibold text-muted">
+          <span className="block overflow-hidden pb-[0.24em] -mb-[0.24em] text-[clamp(1.4rem,3.6vw,2.6rem)]">
+            <span data-hero-line className="block font-semibold text-muted">
               {hero.greeting}
             </span>
           </span>
-          <span className="block overflow-hidden pb-[0.06em]">
-            <span data-hero-line className="block text-[clamp(2.1rem,8.6vw,9.5rem)]">
+          <span className="block overflow-hidden pb-[0.24em] -mb-[0.24em] text-[clamp(2.1rem,8.6vw,9.5rem)]">
+            <span data-hero-line className="block">
               {first}
             </span>
           </span>
-          <span className="block overflow-hidden pb-[0.08em]">
-            <span data-hero-line className="text-gradient block text-[clamp(2.1rem,8.6vw,9.5rem)]">
+          <span className="block overflow-hidden pb-[0.24em] -mb-[0.14em] text-[clamp(2.1rem,8.6vw,9.5rem)]">
+            <span data-hero-line className="text-gradient block">
               {rest.join(" ")}
             </span>
           </span>
@@ -162,7 +162,7 @@ export function Hero() {
             {hero.primaryCta.label}
             <Arrow className="rotate-90 group-hover:translate-x-0 group-hover:translate-y-0.5" />
           </ButtonLink>
-          <ButtonLink href={site.resumeUrl} download variant="ghost">
+          <ButtonLink href={site.resumeUrl} download="Harshdeepsinh-Gohil-Resume.pdf" variant="ghost">
             {hero.secondaryCta.label}
             <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14" />
