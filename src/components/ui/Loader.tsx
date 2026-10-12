@@ -24,17 +24,27 @@ export function Loader() {
     lock();
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const done = () => {
+    let released = false;
+    const release = () => {
+      if (released) return;
+      released = true;
       unlock();
+    };
+    const done = () => {
+      release();
       finish();
       setGone(true);
       ScrollTrigger.refresh();
     };
+    // Safety net: never leave the page locked, even if the timeline stalls.
+    const failsafe = window.setTimeout(done, 4000);
 
     if (reduced) {
       const t = gsap.to(el, { autoAlpha: 0, duration: 0.3, delay: 0.1, onStart: finish, onComplete: done });
       return () => {
         t.kill();
+        window.clearTimeout(failsafe);
+        release();
       };
     }
 
@@ -65,6 +75,8 @@ export function Loader() {
 
     return () => {
       tl.kill();
+      window.clearTimeout(failsafe);
+      release();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

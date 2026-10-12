@@ -22,6 +22,8 @@ export const useSmoothScroll = () => useContext(Ctx);
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
   const [lenis, setLenis] = useState<Lenis | null>(null);
+  // Ref mirror so lock/unlock never act on a stale (pre-creation) instance.
+  const lenisRef = useRef<Lenis | null>(null);
   const lockCount = useRef(0);
 
   useEffect(() => {
@@ -40,11 +42,13 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
     if (lockCount.current > 0) instance.stop();
+    lenisRef.current = instance;
     setLenis(instance);
 
     return () => {
       gsap.ticker.remove(tick);
       instance.destroy();
+      lenisRef.current = null;
       setLenis(null);
     };
   }, []);
@@ -66,16 +70,16 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
 
   const lock = useCallback(() => {
     lockCount.current += 1;
-    lenis?.stop();
+    lenisRef.current?.stop();
     document.documentElement.style.overflow = "hidden";
-  }, [lenis]);
+  }, []);
 
   const unlock = useCallback(() => {
     lockCount.current = Math.max(0, lockCount.current - 1);
     if (lockCount.current > 0) return;
-    lenis?.start();
+    lenisRef.current?.start();
     document.documentElement.style.overflow = "";
-  }, [lenis]);
+  }, []);
 
   return <Ctx.Provider value={{ lenis, scrollTo, lock, unlock }}>{children}</Ctx.Provider>;
 }
